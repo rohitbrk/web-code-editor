@@ -1,12 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Editor from "@monaco-editor/react";
-import "./App.css";
 
 function App() {
-  const [htmlCode, setHtmlCode] = useState("");
-  const [cssCode, setCssCode] = useState("");
-  const [jsCode, setJsCode] = useState("");
+  const [htmlCode, setHtmlCode] = useState("<h1>hello world !</h1>");
+  const [cssCode, setCssCode] = useState(`h1{
+    background-color:#007bff
+}`);
+  const [jsCode, setJsCode] = useState(
+    "document.querySelector('h1').style.borderRadius = '0.4rem'"
+  );
   const [content, setContent] = useState("");
+
+  useEffect(() => {
+    runCode();
+  }, []);
 
   const runCode = () => {
     setContent(`
@@ -42,32 +49,30 @@ function App() {
   ];
 
   return (
-    <div style={{ display: "flex", margin: 0 }}>
-      <div>
-        {LANGS.map((item) => (
-          <Editor
-            height="14rem"
-            width="40rem"
-            language={item.language}
-            theme="vs-dark"
-            value={item.value}
-            onChange={item.onChange}
-            options={editorOptions}
-          />
-        ))}
+    <>
+      <div className="container">
+        <h2>Editor</h2>
+        <button className="btn" onClick={() => runCode()}>
+          run
+        </button>
       </div>
-      <div style={{ display: "flex", flexDirection: "column" }}>
-        <button onClick={() => runCode()}>run</button>
-        <iframe
-          style={{
-            width: "40rem",
-            height: "32rem",
-            marginTop: "1.2rem",
-          }}
-          srcDoc={content}
-        ></iframe>
+      <div className="container">
+        <div>
+          {LANGS.map((item) => (
+            <div className="editor">
+              <Editor
+                language={item.language}
+                theme="vs-dark"
+                value={item.value}
+                onChange={item.onChange}
+                options={editorOptions}
+              />
+            </div>
+          ))}
+        </div>
+        <iframe className="preview" srcDoc={content}></iframe>
       </div>
-    </div>
+    </>
   );
 }
 

@@ -1,14 +1,12 @@
+// @ts-nocheck
 import { useEffect, useState } from "react";
 import Editor from "@monaco-editor/react";
+import { _htmlCode, _cssCode, _jsCode } from "../src/utils/boilerplateCode.js";
 
 function App() {
-  const [htmlCode, setHtmlCode] = useState("<h1>hello world !</h1>");
-  const [cssCode, setCssCode] = useState(`h1{
-    background-color:#007bff
-}`);
-  const [jsCode, setJsCode] = useState(
-    "document.querySelector('h1').style.borderRadius = '0.4rem'"
-  );
+  const [htmlCode, setHtmlCode] = useState(_htmlCode);
+  const [cssCode, setCssCode] = useState(_cssCode);
+  const [jsCode, setJsCode] = useState(_jsCode);
   const [content, setContent] = useState("");
 
   useEffect(() => {
@@ -57,7 +55,7 @@ function App() {
         </button>
       </div>
       <div className="container">
-        <div>
+        <div className="editors">
           {LANGS.map((item) => (
             <div className="editor">
               <Editor

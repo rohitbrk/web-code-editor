@@ -49,7 +49,7 @@ function App() {
   return (
     <>
       <div className="container">
-        <h2>Editor</h2>
+        <h2>Webtor</h2>
         <button className="btn" onClick={() => runCode()}>
           run
         </button>
